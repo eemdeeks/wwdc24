@@ -22,7 +22,18 @@ class PlayViewModel: ObservableObject{
 
     func clickedButton() {
         self.yut = Yut.allCases.randomElement()!
-        redPieces[0].node = redPieces[0].node.next ?? Node(data: Offset(width: 0, height: 0))
+        var runCount = yut.number
+
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            runCount -= 1
+
+            if runCount == 0 {
+                timer.invalidate()
+            }
+
+            self.redPieces[0].node = self.redPieces[0].node.next ?? Node(data: Offset(width: 0, height: 0))
+        }
+
 
         print(redPieces[0].node.data.height)
         print(yut)

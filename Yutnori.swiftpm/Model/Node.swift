@@ -31,5 +31,6 @@ struct Nodes {
         block1.next = block2
         block2.next = block3
         block3.next = end
+        end.next = block1
     }
 }
