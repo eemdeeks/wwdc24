@@ -12,6 +12,7 @@ struct PlayView: View {
 
     var body: some View {
         VStack {
+            Text("\(viewModel.yut.rawValue)")
             ZStack {
                 ForEach(viewModel.redPieces) { redPiece in
                     Image("RedPiece")
