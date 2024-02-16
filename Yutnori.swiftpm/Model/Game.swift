@@ -14,7 +14,7 @@ struct Game {
     var bluePieces: [Piece]
 }
 
-enum Team {
+enum Team: String {
     case Red
     case Blue
 

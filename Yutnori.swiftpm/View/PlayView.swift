@@ -12,25 +12,35 @@ struct PlayView: View {
 
     var body: some View {
         VStack {
-            Text("\(viewModel.yut.rawValue)")
+            Text("\(viewModel.game.yut.rawValue)")
+            Text("\(viewModel.game.turn.rawValue)")
             ZStack {
-                ForEach(viewModel.redPieces) { redPiece in
+                ForEach(viewModel.game.redPieces.indices, id: \.self) { index in
                     Image("RedPiece")
-                        .offset(CGSize(width: redPiece.offset.width, height: redPiece.offset.height))
-                        .animation(.easeInOut, value: redPiece.offset)
+                        .offset(CGSize(width: viewModel.game.redPieces[index].offset.width, height: viewModel.game.redPieces[index].offset.height))
+                        .animation(.easeInOut, value: viewModel.game.redPieces[index].offset)
+                        .onTapGesture {
+                            if viewModel.game.turn == .Red {
+                                viewModel.choosePiece(index: index)
+                            }
+                        }
 
                 }
             }
             ZStack {
-                ForEach(viewModel.bluePieces) { bluePiece in
+                ForEach(viewModel.game.bluePieces.indices, id: \.self) { index in
                     Image("BluePiece")
-                        .offset(CGSize(width: bluePiece.offset.width, height: bluePiece.offset.height))
-                        .animation(.easeInOut, value: bluePiece.offset)
-
+                        .offset(CGSize(width: viewModel.game.bluePieces[index].offset.width, height: viewModel.game.bluePieces[index].offset.height))
+                        .animation(.easeInOut, value: viewModel.game.bluePieces[index].offset)
+                        .onTapGesture {
+                            if viewModel.game.turn == .Blue {
+                                viewModel.choosePiece(index: index)
+                            }
+                        }
                 }
             }
             Button("윷 굴리기") {
-                viewModel.clickedButton()
+                viewModel.throwYut()
             }
 
         }
