@@ -10,6 +10,8 @@ import Foundation
 struct Game {
     var turn: Team
     var yut: Yut
+    var redPieces: [Piece]
+    var bluePieces: [Piece]
 }
 
 enum Team {
