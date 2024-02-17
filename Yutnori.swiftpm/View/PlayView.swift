@@ -21,12 +21,13 @@ struct PlayView: View {
                         .animation(.easeInOut, value: viewModel.game.redPieces[index].offset)
                         .onTapGesture {
                             if viewModel.game.turn == .Red {
-                                viewModel.choosePiece(index: index)
+                                viewModel.choosePiece(movePieceIndex: index)
                             }
                         }
 
                 }
             }
+            .padding()
             ZStack {
                 ForEach(viewModel.game.bluePieces.indices, id: \.self) { index in
                     Image("BluePiece")
@@ -34,7 +35,7 @@ struct PlayView: View {
                         .animation(.easeInOut, value: viewModel.game.bluePieces[index].offset)
                         .onTapGesture {
                             if viewModel.game.turn == .Blue {
-                                viewModel.choosePiece(index: index)
+                                viewModel.choosePiece(movePieceIndex: index)
                             }
                         }
                 }
