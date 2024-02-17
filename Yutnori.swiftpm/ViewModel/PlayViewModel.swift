@@ -38,7 +38,9 @@ class PlayViewModel: ObservableObject{
             }
             if runCount == 0 {
                 timer.invalidate()
-                self.game.turn = self.game.turn.switchingTeam()
+                if !(self.game.yut == .Mo || self.game.yut == .Yut) {
+                    self.game.turn = self.game.turn.switchingTeam()
+                }
             }
         }
     }
