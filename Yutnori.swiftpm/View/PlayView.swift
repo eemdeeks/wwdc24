@@ -12,6 +12,7 @@ struct PlayView: View {
 
     var body: some View {
         VStack {
+            Text("\(viewModel.game.action.rawValue)")
             Text("\(viewModel.game.yut.rawValue)")
             Text("\(viewModel.game.turn.rawValue)")
             ZStack {

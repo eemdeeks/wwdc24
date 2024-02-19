@@ -8,6 +8,7 @@
 import Foundation
 
 struct Game {
+    var action: Action
     var turn: Team
     var yut: Yut
     var redPieces: [Piece]
@@ -26,4 +27,11 @@ enum Team: String {
             return .Red
         }
     }
+}
+
+enum Action: String {
+    case Prepared
+    case Throwing
+    case Selecting
+    case Moving
 }

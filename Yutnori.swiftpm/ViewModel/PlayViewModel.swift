@@ -13,7 +13,8 @@ class PlayViewModel: ObservableObject{
 
     init(nodes: Nodes = Nodes()){
         self.nodes = nodes
-        self.game = Game(turn: .Blue,
+        self.game = Game(action: .Prepared,
+                         turn: .Blue,
                          yut: .Mo,
                          redPieces: Array(repeating: Piece(node: nodes.start), count: 4),
                          bluePieces: Array(repeating: Piece(node: nodes.start), count: 4))
@@ -22,9 +23,13 @@ class PlayViewModel: ObservableObject{
     func throwYut() {
         self.game.yut = Yut.allCases.randomElement()!
         var runCount = game.yut.number
+        self.game.action = .Selecting
     }
 
     func choosePiece(movePieceIndex: Int) {
+        guard game.action == .Selecting else { return }
+        game.action = .Moving
+
         var runCount = game.yut.number
         var changeTurnFlag: Bool = true
 
@@ -68,6 +73,8 @@ class PlayViewModel: ObservableObject{
                 if changeTurnFlag {
                     self.game.turn = self.game.turn.switchingTeam()
                 }
+                
+                self.game.action = .Prepared
             }
         }
     }
