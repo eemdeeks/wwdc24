@@ -21,8 +21,8 @@ class PlayViewModel: ObservableObject{
     }
 
     func throwYut() {
+        guard self.game.action == .Prepared else { return }
         self.game.yut = Yut.allCases.randomElement()!
-        var runCount = game.yut.number
         self.game.action = .Selecting
     }
 
