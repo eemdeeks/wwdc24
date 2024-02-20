@@ -13,6 +13,7 @@ struct Piece: Identifiable {
     var offset: Offset {
         node.data
     }
+    var group: Set<Int>
 }
 
 class Offset: Equatable {
