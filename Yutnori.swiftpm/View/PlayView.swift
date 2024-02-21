@@ -21,8 +21,11 @@ struct PlayView: View {
             }
             VStack {
                 Text("\(viewModel.game.action.rawValue)")
+                    .font(.custom(.dovemayo, size: 10))
                 Text("\(viewModel.game.yut.rawValue)")
+                    .font(.custom(.dovemayo, size: 10))
                 Text("\(viewModel.game.turn.rawValue)")
+                    .font(.custom(.dovemayo, size: 10))
                 ZStack {
                     ForEach(viewModel.game.redPieces.indices, id: \.self) { index in
                         Image("RedPiece")
