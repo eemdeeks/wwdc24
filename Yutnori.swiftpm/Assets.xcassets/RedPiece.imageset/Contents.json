@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "RedPiece.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -9,7 +10,6 @@
       "scale" : "2x"
     },
     {
-      "filename" : "RedPiece.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
