@@ -19,6 +19,8 @@ class Node<T>{
 
 struct Nodes {
     let start: Node<Offset>
+    var redStart: [Node<Offset>]
+    var blueStart: [Node<Offset>]
     let block1: Node<Offset>
     let block2: Node<Offset>
     let block3: Node<Offset>
@@ -61,6 +63,12 @@ struct Nodes {
         self.block18 = Node(data: Offset(width: 0, height: 100))
         self.block19 = Node(data: Offset(width: 0, height: 150))
         self.end = Node(data: Offset(width: -200, height: -200))
+        self.redStart = []
+        self.blueStart = []
+        for index in 0..<4 {
+            redStart.append(Node(data: Offset(width: Double(index * 50), height: 300), next: block1))
+            blueStart.append(Node(data: Offset(width: Double(index * -50), height: 300), next: block1))
+        }
 
         start.next = block1
         block1.next = block2

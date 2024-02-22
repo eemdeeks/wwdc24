@@ -16,8 +16,16 @@ class PlayViewModel: ObservableObject{
         self.game = Game(action: .Prepared,
                          turn: .Blue,
                          yut: .Mo,
-                         redPieces: Array(repeating: Piece(node: nodes.start, group: []), count: 4),
-                         bluePieces: Array(repeating: Piece(node: nodes.start, group: []), count: 4))
+                         redPieces: [],
+                         bluePieces: [])
+        initPieces()
+    }
+
+    func initPieces() {
+        for index in 0..<4 {
+            self.game.redPieces.append(Piece(node: nodes.redStart[index], group: []))
+            self.game.bluePieces.append(Piece(node: nodes.blueStart[index], group: []))
+        }
     }
 
     func throwYut() {
@@ -59,7 +67,7 @@ class PlayViewModel: ObservableObject{
                         //잡기
                         if self.game.bluePieces[index].node.data == self.game.redPieces[movePieceIndex].node.data {
                             Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                                self.game.bluePieces[index].node = self.nodes.start
+                                self.game.bluePieces[index].node = self.nodes.blueStart[index]
                             }
                             self.game.bluePieces[index].group = []
                             changeTurnFlag = false
@@ -77,7 +85,7 @@ class PlayViewModel: ObservableObject{
                         //잡기
                         if self.game.redPieces[index].node.data == self.game.bluePieces[movePieceIndex].node.data {
                             Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                                self.game.redPieces[index].node = self.nodes.start
+                                self.game.redPieces[index].node = self.nodes.redStart[index]
                             }
                             self.game.redPieces[index].group = []
                             changeTurnFlag = false
