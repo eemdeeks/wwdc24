@@ -23,8 +23,7 @@ let package = Package(
             appIcon: .placeholder(icon: .map),
             accentColor: .presetColor(.cyan),
             supportedDeviceFamilies: [
-                .pad,
-                .phone
+                .pad
             ],
             supportedInterfaceOrientations: [
                 .portrait,
