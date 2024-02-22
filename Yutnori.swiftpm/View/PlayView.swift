@@ -65,7 +65,7 @@ struct PlayView: View {
             }
 
             ForEach(viewModel.game.redPieces.indices, id: \.self) { index in
-                Image("RedPiece")
+                Image(viewModel.game.redPieces[index].isFinish ? "FinishRedPiece": "RedPiece")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.width / 15,
                            height: UIScreen.main.bounds.width / 15)
@@ -80,7 +80,7 @@ struct PlayView: View {
             }
 
             ForEach(viewModel.game.bluePieces.indices, id: \.self) { index in
-                Image("BluePiece")
+                Image(viewModel.game.bluePieces[index].isFinish ? "FinishBluePiece": "BluePiece")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.width / 15,
                            height: UIScreen.main.bounds.width / 15)

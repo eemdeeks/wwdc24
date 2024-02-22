@@ -14,6 +14,7 @@ struct Piece: Identifiable {
         node.data
     }
     var group: Set<Int>
+    var isFinish: Bool
 }
 
 class Offset: Equatable {

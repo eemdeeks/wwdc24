@@ -23,8 +23,8 @@ class PlayViewModel: ObservableObject{
 
     func initPieces() {
         for index in 0..<4 {
-            self.game.redPieces.append(Piece(node: nodes.redStart[index], group: []))
-            self.game.bluePieces.append(Piece(node: nodes.blueStart[index], group: []))
+            self.game.redPieces.append(Piece(node: nodes.redStart[index], group: [], isFinish: false))
+            self.game.bluePieces.append(Piece(node: nodes.blueStart[index], group: [], isFinish: false))
         }
     }
 
@@ -36,6 +36,12 @@ class PlayViewModel: ObservableObject{
 
     func choosePiece(movePieceIndex: Int) {
         guard game.action == .Selecting else { return }
+        switch self.game.turn {
+        case .Red:
+            guard !game.redPieces[movePieceIndex].isFinish else { return }
+        case .Blue:
+            guard !game.bluePieces[movePieceIndex].isFinish else { return }
+        }
         game.action = .Moving
 
         var runCount = game.yut.number
@@ -46,16 +52,36 @@ class PlayViewModel: ObservableObject{
 
             switch self.game.turn {
             case .Red:
-                self.game.redPieces[movePieceIndex].node = self.game.redPieces[movePieceIndex].node.next ?? Node(data: Offset(width: 0, height: 0))
+                if let node = self.game.redPieces[movePieceIndex].node.next {
+                    self.game.redPieces[movePieceIndex].node = node
+                } else {
+                    self.game.redPieces[movePieceIndex].node = self.nodes.redFinish[movePieceIndex]
+                    self.game.redPieces[movePieceIndex].isFinish = true
+                }
                 for groupIndex in self.game.redPieces[movePieceIndex].group {
                     if groupIndex == movePieceIndex { continue }
-                    self.game.redPieces[groupIndex].node = self.game.redPieces[groupIndex].node.next ?? Node(data: Offset(width: 0, height: 0))
+                    if let node = self.game.redPieces[groupIndex].node.next {
+                        self.game.redPieces[groupIndex].node = node
+                    } else {
+                        self.game.redPieces[groupIndex].node = self.nodes.redFinish[groupIndex]
+                        self.game.redPieces[groupIndex].isFinish = true
+                    }
                 }
             case .Blue:
-                self.game.bluePieces[movePieceIndex].node = self.game.bluePieces[movePieceIndex].node.next ?? Node(data: Offset(width: 0, height: 0))
+                if let node = self.game.bluePieces[movePieceIndex].node.next {
+                    self.game.bluePieces[movePieceIndex].node = node
+                } else {
+                    self.game.bluePieces[movePieceIndex].node = self.nodes.blueFinish[movePieceIndex]
+                    self.game.bluePieces[movePieceIndex].isFinish = true
+                }
                 for groupIndex in self.game.bluePieces[movePieceIndex].group {
                     if groupIndex == movePieceIndex { continue }
-                    self.game.bluePieces[groupIndex].node = self.game.bluePieces[groupIndex].node.next ?? Node(data: Offset(width: 0, height: 0))
+                    if let node = self.game.bluePieces[groupIndex].node.next {
+                        self.game.bluePieces[groupIndex].node = node
+                    } else {
+                        self.game.bluePieces[groupIndex].node = self.nodes.blueFinish[groupIndex]
+                        self.game.bluePieces[groupIndex].isFinish = true
+                    }
                 }
             }
 

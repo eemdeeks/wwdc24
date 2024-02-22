@@ -41,6 +41,9 @@ struct Nodes {
     let block18: Node<Offset>
     let block19: Node<Offset>
     let end: Node<Offset>
+    var redFinish: [Node<Offset>]
+    var blueFinish: [Node<Offset>]
+
     init() {
         self.start = Node(data: Offset(width: 0, height: 0))
         self.block1 = Node(data: Offset(width: 280, height: 50))
@@ -65,9 +68,17 @@ struct Nodes {
         self.end = Node(data: Offset(width: 280, height: 170))
         self.redStart = []
         self.blueStart = []
+        self.redFinish = []
+        self.blueFinish = []
         for index in 0..<4 {
             redStart.append(Node(data: Offset(width: Double(index * 70) + 80, height: 380), next: block1))
+            redFinish.append(Node(data: Offset(width: Double(index * 70) + 80, height: 380)))
+
             blueStart.append(Node(data: Offset(width: Double(index * -70) - 80, height: 380), next: block1))
+            blueFinish.append(Node(data: Offset(width: Double(index * -70) - 80, height: 380)))
+            
+            redFinish[index].next = redFinish[index]
+            blueFinish[index].next = blueFinish[index]
         }
 
         start.next = block1
@@ -90,7 +101,6 @@ struct Nodes {
         block17.next = block18
         block18.next = block19
         block19.next = end
-        end.next = start
 
 
     }
