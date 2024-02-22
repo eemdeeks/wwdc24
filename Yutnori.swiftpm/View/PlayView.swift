@@ -12,13 +12,11 @@ struct PlayView: View {
 
     var body: some View {
         ZStack {
-            HStack {
-                Image("field")
-                    .resizable()
-                    .frame(height: UIScreen.main.bounds.height)
-                    .scaledToFit()
-                Spacer()
-            }
+            Image("background")
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width)
+                .scaledToFill()
+                .ignoresSafeArea()
             VStack {
                 Text("\(viewModel.game.action.rawValue)")
                     .font(.custom(.dovemayo, size: 10))
@@ -26,36 +24,73 @@ struct PlayView: View {
                     .font(.custom(.dovemayo, size: 10))
                 Text("\(viewModel.game.turn.rawValue)")
                     .font(.custom(.dovemayo, size: 10))
-                ZStack {
-                    ForEach(viewModel.game.redPieces.indices, id: \.self) { index in
-                        Image("RedPiece")
-                            .offset(CGSize(width: viewModel.game.redPieces[index].offset.width, height: viewModel.game.redPieces[index].offset.height))
-                            .animation(.easeInOut, value: viewModel.game.redPieces[index].offset)
-                            .onTapGesture {
-                                if viewModel.game.turn == .Red {
-                                    viewModel.choosePiece(movePieceIndex: index)
-                                }
-                            }
+                Image("board")
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width * 0.9,
+                           height: UIScreen.main.bounds.width * 0.9)
+                HStack {
+                    VStack {
+                        Text("Red Team")
+                            .font(.custom(.dovemayo, size: 30))
+                        RoundedRectangle(cornerRadius: 50)
+                            .stroke(lineWidth: 4)
+                            .frame(width: UIScreen.main.bounds.width * 0.4,
+                                   height: UIScreen.main.bounds.width / 13)
+                    }
+                    .padding()
 
+                    VStack {
+                        Text("Blue Team")
+                            .font(.custom(.dovemayo, size: 30))
+                        RoundedRectangle(cornerRadius: 50)
+                            .stroke(lineWidth: 4)
+                            .frame(width: UIScreen.main.bounds.width * 0.4,
+                                   height: UIScreen.main.bounds.width / 13)
                     }
+                    .padding()
                 }
-                .padding()
-                ZStack {
-                    ForEach(viewModel.game.bluePieces.indices, id: \.self) { index in
-                        Image("BluePiece")
-                            .offset(CGSize(width: viewModel.game.bluePieces[index].offset.width, height: viewModel.game.bluePieces[index].offset.height))
-                            .animation(.easeInOut, value: viewModel.game.bluePieces[index].offset)
-                            .onTapGesture {
-                                if viewModel.game.turn == .Blue {
-                                    viewModel.choosePiece(movePieceIndex: index)
-                                }
-                            }
-                    }
-                }
-                Button("윷 굴리기") {
+
+                Button {
                     viewModel.throwYut()
+                } label: {
+                    ZStack {
+                        Text("Throw Yut")
+                            .font(.custom(.dovemayo, size: 60))
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(lineWidth: 4)
+                            .frame(width: UIScreen.main.bounds.width * 0.85,
+                                   height: UIScreen.main.bounds.width / 13)
+                    }
                 }
+            }
 
+            ForEach(viewModel.game.redPieces.indices, id: \.self) { index in
+                Image("RedPiece")
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width / 15,
+                           height: UIScreen.main.bounds.width / 15)
+                    .offset(CGSize(width: viewModel.game.redPieces[index].offset.width, height: viewModel.game.redPieces[index].offset.height))
+                    .animation(.easeInOut, value: viewModel.game.redPieces[index].offset)
+                    .onTapGesture {
+                        if viewModel.game.turn == .Red {
+                            viewModel.choosePiece(movePieceIndex: index)
+                        }
+                    }
+
+            }
+
+            ForEach(viewModel.game.bluePieces.indices, id: \.self) { index in
+                Image("BluePiece")
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width / 15,
+                           height: UIScreen.main.bounds.width / 15)
+                    .offset(CGSize(width: viewModel.game.bluePieces[index].offset.width, height: viewModel.game.bluePieces[index].offset.height))
+                    .animation(.easeInOut, value: viewModel.game.bluePieces[index].offset)
+                    .onTapGesture {
+                        if viewModel.game.turn == .Blue {
+                            viewModel.choosePiece(movePieceIndex: index)
+                        }
+                    }
             }
         }
     }
