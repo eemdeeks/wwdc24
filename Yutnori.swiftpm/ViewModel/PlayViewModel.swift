@@ -17,7 +17,8 @@ class PlayViewModel: ObservableObject{
                          turn: .Blue,
                          yut: .Mo,
                          redPieces: [],
-                         bluePieces: [])
+                         bluePieces: [],
+                         isFinish: false)
         initPieces()
     }
 
@@ -158,6 +159,32 @@ class PlayViewModel: ObservableObject{
                     }
                 }
                 
+                var countFinish: Int = 0
+                switch self.game.turn {
+                case .Red:
+                    for piece in self.game.redPieces where piece.isFinish {
+                        countFinish += 1
+                    }
+                    if countFinish == 4 {
+                        self.game.winner = .Red
+                        self.game.isFinish = true
+                    }
+                case .Blue:
+                    for piece in self.game.redPieces where piece.isFinish {
+                        countFinish += 1
+                    }
+                    if countFinish == 4 {
+                        self.game.winner = .Blue
+                        self.game.isFinish = true
+                    }
+                }
+
+                if self.game.isFinish {
+                    self.game.action = .End
+                } else {
+                    self.game.action = .Prepared
+                }
+
                 if self.game.yut == .Mo || self.game.yut == .Yut {
                     changeTurnFlag = false
                 }
@@ -165,9 +192,17 @@ class PlayViewModel: ObservableObject{
                 if changeTurnFlag {
                     self.game.turn = self.game.turn.switchingTeam()
                 }
-                
-                self.game.action = .Prepared
             }
         }
+    }
+
+    func resetGame() {
+        self.game = Game(action: .Prepared,
+                         turn: self.game.turn,
+                         yut: .Mo,
+                         redPieces: [],
+                         bluePieces: [],
+                         isFinish: false)
+        initPieces()
     }
 }

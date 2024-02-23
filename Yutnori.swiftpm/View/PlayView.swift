@@ -30,7 +30,7 @@ struct PlayView: View {
                            height: UIScreen.main.bounds.width * 0.9)
                 HStack {
                     VStack {
-                        Text("Red Team")
+                        Text("Blue Team")
                             .font(.custom(.dovemayo, size: 30))
                         RoundedRectangle(cornerRadius: 50)
                             .stroke(lineWidth: 4)
@@ -40,7 +40,7 @@ struct PlayView: View {
                     .padding()
 
                     VStack {
-                        Text("Blue Team")
+                        Text("Red Team")
                             .font(.custom(.dovemayo, size: 30))
                         RoundedRectangle(cornerRadius: 50)
                             .stroke(lineWidth: 4)
@@ -91,6 +91,16 @@ struct PlayView: View {
                             viewModel.choosePiece(movePieceIndex: index)
                         }
                     }
+            }
+        }
+        .alert(
+            "Winner is \(self.viewModel.game.winner?.rawValue ?? "unknown") Team!!",
+            isPresented: $viewModel.game.isFinish
+        ) {
+            Button("OK") {
+            }
+            Button("Retry") {
+                viewModel.resetGame()
             }
         }
     }

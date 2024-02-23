@@ -13,6 +13,8 @@ struct Game {
     var yut: Yut
     var redPieces: [Piece]
     var bluePieces: [Piece]
+    var winner: Team?
+    var isFinish: Bool
 }
 
 enum Team: String {
@@ -34,4 +36,5 @@ enum Action: String {
     case Throwing
     case Selecting
     case Moving
+    case End
 }
