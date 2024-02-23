@@ -53,7 +53,15 @@ class PlayViewModel: ObservableObject{
             switch self.game.turn {
             case .Red:
                 if let node = self.game.redPieces[movePieceIndex].node.next {
-                    self.game.redPieces[movePieceIndex].node = node
+                    if runCount == self.game.yut.number-1 {
+                        if let directNode = self.game.redPieces[movePieceIndex].node.directNext {
+                            self.game.redPieces[movePieceIndex].node = directNode
+                        } else {
+                            self.game.redPieces[movePieceIndex].node = node
+                        }
+                    } else {
+                        self.game.redPieces[movePieceIndex].node = node
+                    }
                 } else {
                     self.game.redPieces[movePieceIndex].node = self.nodes.redFinish[movePieceIndex]
                     self.game.redPieces[movePieceIndex].isFinish = true
@@ -61,7 +69,15 @@ class PlayViewModel: ObservableObject{
                 for groupIndex in self.game.redPieces[movePieceIndex].group {
                     if groupIndex == movePieceIndex { continue }
                     if let node = self.game.redPieces[groupIndex].node.next {
-                        self.game.redPieces[groupIndex].node = node
+                        if runCount == self.game.yut.number-1 {
+                            if let directNode = self.game.redPieces[groupIndex].node.directNext {
+                                self.game.redPieces[groupIndex].node = directNode
+                            } else {
+                                self.game.redPieces[groupIndex].node = node
+                            }
+                        } else {
+                            self.game.redPieces[groupIndex].node = node
+                        }
                     } else {
                         self.game.redPieces[groupIndex].node = self.nodes.redFinish[groupIndex]
                         self.game.redPieces[groupIndex].isFinish = true
@@ -69,7 +85,15 @@ class PlayViewModel: ObservableObject{
                 }
             case .Blue:
                 if let node = self.game.bluePieces[movePieceIndex].node.next {
-                    self.game.bluePieces[movePieceIndex].node = node
+                    if runCount == self.game.yut.number-1 {
+                        if let directNode = self.game.bluePieces[movePieceIndex].node.directNext {
+                            self.game.bluePieces[movePieceIndex].node = directNode
+                        } else {
+                            self.game.bluePieces[movePieceIndex].node = node
+                        }
+                    } else {
+                        self.game.bluePieces[movePieceIndex].node = node
+                    }
                 } else {
                     self.game.bluePieces[movePieceIndex].node = self.nodes.blueFinish[movePieceIndex]
                     self.game.bluePieces[movePieceIndex].isFinish = true
@@ -77,7 +101,15 @@ class PlayViewModel: ObservableObject{
                 for groupIndex in self.game.bluePieces[movePieceIndex].group {
                     if groupIndex == movePieceIndex { continue }
                     if let node = self.game.bluePieces[groupIndex].node.next {
-                        self.game.bluePieces[groupIndex].node = node
+                        if runCount == self.game.yut.number-1 {
+                            if let directNode = self.game.bluePieces[groupIndex].node.directNext {
+                                self.game.bluePieces[groupIndex].node = directNode
+                            } else {
+                                self.game.bluePieces[groupIndex].node = node
+                            }
+                        } else {
+                            self.game.bluePieces[groupIndex].node = node
+                        }
                     } else {
                         self.game.bluePieces[groupIndex].node = self.nodes.blueFinish[groupIndex]
                         self.game.bluePieces[groupIndex].isFinish = true
