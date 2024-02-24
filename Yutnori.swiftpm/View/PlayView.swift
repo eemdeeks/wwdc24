@@ -18,12 +18,28 @@ struct PlayView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             VStack {
-                Text("\(viewModel.game.action.rawValue)")
-                    .font(.custom(.dovemayo, size: 10))
-                Text("\(viewModel.game.yut.rawValue)")
-                    .font(.custom(.dovemayo, size: 10))
-                Text("\(viewModel.game.turn.rawValue)")
-                    .font(.custom(.dovemayo, size: 10))
+//                Text("\(viewModel.game.action.rawValue)")
+//                    .font(.custom(.dovemayo, size: 10))
+//                Text("\(viewModel.game.yut.rawValue)")
+//                    .font(.custom(.dovemayo, size: 10))
+//                Text("\(viewModel.game.turn.rawValue)")
+//                    .font(.custom(.dovemayo, size: 10))
+                HStack {
+                    Spacer()
+                    Button {
+                        viewModel.resetGame()
+                    } label: {
+                        Image("rePlayButton")
+                    }
+
+                    Button {
+                        
+                    } label: {
+                        Image("helpButton")
+                    }
+                }
+                .padding(.horizontal)
+                .ignoresSafeArea()
                 Image("board")
                     .resizable()
                     .frame(width: UIScreen.main.bounds.width * 0.9,
