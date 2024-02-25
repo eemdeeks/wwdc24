@@ -99,16 +99,28 @@ struct Nodes {
         self.blueStart = []
         self.redFinish = []
         self.blueFinish = []
-        for index in 0..<4 {
-            redStart.append(Node(data: Offset(width: Double(index * 70) + 80, height: 380), next: block1))
-            redFinish.append(Node(data: Offset(width: Double(index * 70) + 80, height: 380)))
+        for index in 0..<2 {
+            redStart.append(Node(data: Offset(width: Double(index * 70) + 180, height: 405), next: block1))
+            redFinish.append(Node(data: Offset(width: Double(index * 70) + 180, height: 405)))
 
-            blueStart.append(Node(data: Offset(width: Double(index * -70) - 80, height: 380), next: block1))
-            blueFinish.append(Node(data: Offset(width: Double(index * -70) - 80, height: 380)))
-            
+            blueStart.append(Node(data: Offset(width: Double(index * -70) - 180, height: 405), next: block1))
+            blueFinish.append(Node(data: Offset(width: Double(index * -70) - 180, height: 405)))
+
             redFinish[index].next = redFinish[index]
             blueFinish[index].next = blueFinish[index]
         }
+
+        for index in 2..<4 {
+            redStart.append(Node(data: Offset(width: Double(index-2) * 70 + 180, height: 475), next: block1))
+            redFinish.append(Node(data: Offset(width: Double(index-2) * 70 + 180, height: 475)))
+
+            blueStart.append(Node(data: Offset(width: Double(index-2) * -70 - 180, height: 475), next: block1))
+            blueFinish.append(Node(data: Offset(width: Double(index-2) * -70 - 180, height: 475)))
+
+            redFinish[index].next = redFinish[index]
+            blueFinish[index].next = blueFinish[index]
+        }
+
 
         block1.next = block2
         block2.next = block3

@@ -28,13 +28,17 @@ struct PlayView: View {
                     Button {
                         viewModel.resetGame()
                     } label: {
-                        Image("rePlayButton")
+                        Image(systemName: "arrow.counterclockwise.square")
+                            .foregroundStyle(.black)
+                            .font(.custom(.dovemayo, size: 46))
                     }
 
                     Button {
                         viewModel.pressHowToPlay()
                     } label: {
-                        Image("helpButton")
+                        Image(systemName: "questionmark.square")
+                            .foregroundStyle(.black)
+                            .font(.custom(.dovemayo, size: 46))
                     }
                 }
                 .padding(.horizontal)
@@ -76,7 +80,7 @@ struct PlayView: View {
                             }
                         }
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, 22)
 
                     VStack {
                         Text("Red Team")
