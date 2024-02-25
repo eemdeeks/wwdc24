@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DescriptionView: View {
+    @Binding var presentPage: Page
     var body: some View {
         ScrollView(.vertical) {
             header
@@ -94,6 +95,8 @@ extension DescriptionView {
             Image("DiscriptYut")
                 .resizable()
                 .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.width * 0.32)
+            Text("In addition, Yut and Mo can move their pieces and throw another Yut.")
+                .font(.custom(.dovemayo, size: 25))
 
         }.padding()
     }
@@ -131,6 +134,8 @@ extension DescriptionView {
                 .font(.custom(.dovemayo, size: 25))
             Text(" you can capture his piece.")
                 .font(.custom(.dovemayo, size: 25))
+            Text("If you catch the piece, you can throw the Yut one more time.")
+                .font(.custom(.dovemayo, size: 25))
                 .padding(.bottom, 5)
             Text("You can move multiple pieces simultaneously ")
                 .font(.custom(.dovemayo, size: 25))
@@ -147,7 +152,7 @@ extension DescriptionView {
             Text("So, you have to stay on your toes until the very end.")
                 .font(.custom(.dovemayo, size: 30))
             Button {
-
+                presentPage = .Play
             } label: {
                 VStack {
                     Text("Let's Go Play Yutnori!!")
