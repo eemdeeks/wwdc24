@@ -10,8 +10,9 @@ import Foundation
 class PlayViewModel: ObservableObject{
     var nodes: Nodes
     @Published var game: Game
+    @Published var howToPlay: Bool
 
-    init(nodes: Nodes = Nodes()){
+    init(nodes: Nodes = Nodes(), howToPlay: Bool = true){
         self.nodes = nodes
         self.game = Game(action: .Prepared,
                          turn: .Blue,
@@ -19,7 +20,12 @@ class PlayViewModel: ObservableObject{
                          redPieces: [],
                          bluePieces: [],
                          isFinish: false)
+        self.howToPlay = howToPlay
         initPieces()
+    }
+
+    func pressHowToPlay() {
+        howToPlay = true
     }
 
     func initPieces() {

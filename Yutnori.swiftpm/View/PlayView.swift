@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PlayView: View {
     @StateObject var viewModel = PlayViewModel()
-
     var body: some View {
         ZStack {
             Image("background")
@@ -33,7 +32,7 @@ struct PlayView: View {
                     }
 
                     Button {
-                        
+                        viewModel.pressHowToPlay()
                     } label: {
                         Image("helpButton")
                     }
@@ -48,35 +47,48 @@ struct PlayView: View {
                     VStack {
                         Text("Blue Team")
                             .font(.custom(.dovemayo, size: 30))
+                            .foregroundStyle(viewModel.game.turn == .Blue && viewModel.game.action == .Selecting ? .blue: .black)
                         RoundedRectangle(cornerRadius: 50)
                             .stroke(lineWidth: 4)
-                            .frame(width: UIScreen.main.bounds.width * 0.4,
-                                   height: UIScreen.main.bounds.width / 13)
+                            .frame(width: UIScreen.main.bounds.width * 0.2,
+                                   height: UIScreen.main.bounds.width * 0.2)
+                            .foregroundStyle(viewModel.game.turn == .Blue && viewModel.game.action == .Selecting ? .blue: .black)
                     }
                     .padding()
+                    
+                    Button {
+                        viewModel.throwYut()
+                    } label: {
+                        VStack {
+                            Text("Throw Yut")
+                                .font(.custom(.dovemayo, size: 30))
+                                .foregroundStyle(viewModel.game.turn == .Red ? .red: .blue)
+                            ZStack {
+                                Image("\(viewModel.game.yut.name)")
+                                    .resizable()
+                                    .frame(width: UIScreen.main.bounds.width * 0.2,
+                                           height: UIScreen.main.bounds.width * 0.2)
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(lineWidth: 4)
+                                    .frame(width: UIScreen.main.bounds.width * 0.2,
+                                           height: UIScreen.main.bounds.width * 0.2)
+                                    .foregroundStyle(viewModel.game.turn == .Red ? .red: .blue)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
 
                     VStack {
                         Text("Red Team")
                             .font(.custom(.dovemayo, size: 30))
+                            .foregroundStyle(viewModel.game.turn == .Red && viewModel.game.action == .Selecting ? .red: .black)
                         RoundedRectangle(cornerRadius: 50)
                             .stroke(lineWidth: 4)
-                            .frame(width: UIScreen.main.bounds.width * 0.4,
-                                   height: UIScreen.main.bounds.width / 13)
+                            .frame(width: UIScreen.main.bounds.width * 0.2,
+                                   height: UIScreen.main.bounds.width * 0.2)
+                            .foregroundStyle(viewModel.game.turn == .Red && viewModel.game.action == .Selecting ? .red: .black)
                     }
                     .padding()
-                }
-
-                Button {
-                    viewModel.throwYut()
-                } label: {
-                    ZStack {
-                        Text("Throw Yut")
-                            .font(.custom(.dovemayo, size: 60))
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(lineWidth: 4)
-                            .frame(width: UIScreen.main.bounds.width * 0.85,
-                                   height: UIScreen.main.bounds.width / 13)
-                    }
                 }
             }
 
@@ -113,15 +125,16 @@ struct PlayView: View {
             "Winner is \(self.viewModel.game.winner?.rawValue ?? "unknown") Team!!",
             isPresented: $viewModel.game.isFinish
         ) {
-            Button("OK") {
-            }
+            Button("OK") { }
             Button("Retry") {
                 viewModel.resetGame()
             }
         }
+        .alert("How to Play",
+               isPresented: $viewModel.howToPlay) {
+            Button("OK") { }
+        } message: {
+            Text("1. Click the Throw yut button to throw yut. \n2. Select the piece you want to move and touch it. \n That's it!")
+        }
     }
-}
-
-#Preview {
-    PlayView()
 }
